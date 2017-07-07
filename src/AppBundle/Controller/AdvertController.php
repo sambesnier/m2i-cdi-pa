@@ -22,8 +22,11 @@ class AdvertController extends Controller
      */
     public function indexAction()
     {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
+        $adverts = $repo->getAllAdverts();
+
         return $this->render('AppBundle:Advert:index.html.twig', array(
-            // ...
+            "adverts" => $adverts
         ));
     }
 
@@ -32,10 +35,13 @@ class AdvertController extends Controller
      *     "/details/{id}",
      *     name="advert_details")
      */
-    public function detailsAction()
+    public function detailsAction($id)
     {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
+        $advert = $repo->findOneById($id);
+
         return $this->render('AppBundle:Advert:details.html.twig', array(
-            // ...
+            "advert" => $advert
         ));
     }
 

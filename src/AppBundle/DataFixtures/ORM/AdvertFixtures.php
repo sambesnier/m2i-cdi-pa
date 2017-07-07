@@ -35,7 +35,7 @@ class AdvertFixtures extends AbstractFixture implements OrderedFixtureInterface
         $advert->setPrice($faker->numberBetween(120000, 250000));
         $advert->setYear(new \DateTime('today - 30 year'));
         $advert->setUser($this->getReference('user_1'));
-        $advert->setTitle("A vendre maison ". $advert->getPrice() . "€");
+        $advert->setTitle("Maison de caractère très bien située");
         $manager->persist($advert);
         $manager->flush();
 
@@ -45,10 +45,10 @@ class AdvertFixtures extends AbstractFixture implements OrderedFixtureInterface
         $advert2->setAddress($this->getReference('address_2'));
         $advert2->setArea($faker->numberBetween(35, 150));
         $advert2->setCategory($this->getReference('cat_2'));
-        $advert2->setPrice($faker->numberBetween(120000, 250000));
+        $advert2->setPrice($faker->numberBetween(350, 700));
         $advert2->setYear(new \DateTime('today - 21 year'));
         $advert2->setUser($this->getReference('user_1'));
-        $advert2->setTitle("A louer appartement ". $advert2->getPrice() . "€");
+        $advert2->setTitle("Très bel appartement T3");
         $manager->persist($advert2);
         $manager->flush();
     }

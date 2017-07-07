@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class AdvertRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllAdverts()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select(['a', 'address', 'category', 'project', 'user'])
+            ->innerJoin('a.address', 'address')
+            ->innerJoin('a.category', 'category')
+            ->innerJoin('a.project', 'project')
+            ->innerJoin('a.user', 'user')
+            ->getQuery();
+
+        $query = $qb->getResult();
+        return $query;
+    }
 }

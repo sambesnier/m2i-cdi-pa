@@ -4,6 +4,37 @@
 
 {% block body %}
 
+    <h1>Liste des annonces</h1>
 
+    <div class="container">
+        {% for advert in adverts %}
+            <a href="{{ path('advert_details', {'id': advert.id }) }}">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-responsive img-thumbnail" src="https://media.paruvendu.fr/media-pa/5C0576/jl77_jl77-973a_photo_1.jpg" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <h2>{{ advert.title }}</h2>
+                        <h3>{{ advert.price }}€
+                            {{ advert.project.project == "Location" ? "/mois" : "" }}</h3>
+                        <p>{{ advert.project.project }}</p>
+                        <p>{{ advert.category.category }}</p>
+                    </div>
+                </div>
+            </div>
+            </a>
+        {% endfor %}
+    </div>
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 {% endblock %}
