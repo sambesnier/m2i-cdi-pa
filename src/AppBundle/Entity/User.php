@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -52,8 +53,16 @@ class User implements \Serializable, UserInterface
 
     /**
      * @var string
+     *
+     * @Assert\Length(max=4096)
      */
     private $plainPassword;
+
+    /**
+     * @var string
+     * @ORM\Column(name="salt", type="string", length=45)
+     */
+    private $salt;
 
     /**
      * @var Advert
@@ -275,8 +284,7 @@ class User implements \Serializable, UserInterface
         return serialize([
             $this->id,
             $this->email,
-            $this->name,
-            $this->firstname
+            $this->password
         ]);
     }
 
@@ -295,8 +303,7 @@ class User implements \Serializable, UserInterface
 
         $this->id = $data[0];
         $this->email = $data[1];
-        $this->name = $data[2];
-        $this->firstname = $data[3];
+        $this->password = $data[2];
     }
 
     /**
@@ -329,7 +336,7 @@ class User implements \Serializable, UserInterface
      */
     public function getSalt()
     {
-        return null;
+        return $this->salt;
     }
 
     /**
@@ -351,5 +358,19 @@ class User implements \Serializable, UserInterface
     public function eraseCredentials()
     {
 
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
     }
 }

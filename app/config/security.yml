@@ -21,14 +21,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        author:
+        user:
             pattern: ^/user
             anonymous: false
             provider: user_provider
             form_login:
                 login_path: login_user
                 check_path: login_user_check
-                default_target_path: /user
+                default_target_path: user_home
             logout:
                 path: logout_user
                 target: advert_index
@@ -42,3 +42,4 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
