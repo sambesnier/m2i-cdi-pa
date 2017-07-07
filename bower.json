@@ -1,0 +1,21 @@
+{
+  "name": "m2i-cdi-pa",
+  "homepage": "https://github.com/sambesnier/m2i-cdi-pa",
+  "authors": [
+    "sambesnier <sbesnier1901@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/dependencies",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
