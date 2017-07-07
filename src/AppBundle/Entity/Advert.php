@@ -96,6 +96,16 @@ class Advert
      */
     private $address;
 
+    /**
+     * @var Project
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\Project",
+     *     inversedBy="adverts"
+     * )
+     */
+    private $project;
+
 
     /**
      * Get id
@@ -338,5 +348,29 @@ class Advert
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Advert
+     */
+    public function setProject(\AppBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }
