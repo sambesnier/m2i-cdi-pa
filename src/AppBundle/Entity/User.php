@@ -1,0 +1,243 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ */
+class User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=50)
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, unique=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var Advert
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Advert",
+     *     mappedBy="user"
+     * )
+     */
+    private $adverts;
+
+    /**
+     * @var Address
+     *
+     * @ORM\OneToOne(
+     *     targetEntity="AppBundle\Entity\Address",
+     *     inversedBy="user"
+     * )
+     */
+    private $address;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     *
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->adverts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add advert
+     *
+     * @param \AppBundle\Entity\Advert $advert
+     *
+     * @return User
+     */
+    public function addAdvert(\AppBundle\Entity\Advert $advert)
+    {
+        $this->adverts[] = $advert;
+
+        return $this;
+    }
+
+    /**
+     * Remove advert
+     *
+     * @param \AppBundle\Entity\Advert $advert
+     */
+    public function removeAdvert(\AppBundle\Entity\Advert $advert)
+    {
+        $this->adverts->removeElement($advert);
+    }
+
+    /**
+     * Get adverts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdverts()
+    {
+        return $this->adverts;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \AppBundle\Entity\Address $address
+     *
+     * @return User
+     */
+    public function setAddress(\AppBundle\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \AppBundle\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+}
