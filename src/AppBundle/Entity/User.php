@@ -51,6 +51,11 @@ class User implements \Serializable, UserInterface
     private $password;
 
     /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var Advert
      *
      * @ORM\OneToMany(
@@ -70,6 +75,23 @@ class User implements \Serializable, UserInterface
      */
     private $address;
 
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     * @return User
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
 
     /**
      * Get id
