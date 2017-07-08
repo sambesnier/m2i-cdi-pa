@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Advert
@@ -24,12 +25,20 @@ class Advert
     /**
      * @var string
      *
+     * @Assert\NotBlank(
+     *     message="Vous devez saisir un titre"
+     * )
+     *
      * @ORM\Column(name="title", type="string", length=50)
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(
+     *     message="Vous devez saisir une description"
+     * )
      *
      * @ORM\Column(name="content", type="text")
      */
@@ -38,6 +47,10 @@ class Advert
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank(
+     *     message="Vous devez choisir une date de construction"
+     * )
+     *
      * @ORM\Column(name="year", type="date")
      */
     private $year;
@@ -45,12 +58,20 @@ class Advert
     /**
      * @var int
      *
+     * @Assert\NotBlank(
+     *     message="Vous devez saisir une superficie"
+     * )
+     *
      * @ORM\Column(name="area", type="integer")
      */
     private $area;
 
     /**
      * @var int
+     *
+     * @Assert\NotBlank(
+     *     message="Vous devez saisir un prix"
+     * )
      *
      * @ORM\Column(name="price", type="integer")
      */
@@ -61,7 +82,8 @@ class Advert
      *
      * @ORM\ManyToOne(
      *     targetEntity="AppBundle\Entity\Category",
-     *     inversedBy="adverts"
+     *     inversedBy="adverts",
+     *     cascade={"persist"}
      * )
      */
     private $category;
@@ -91,7 +113,8 @@ class Advert
      *
      * @ORM\OneToOne(
      *     targetEntity="AppBundle\Entity\Address",
-     *     inversedBy="advert"
+     *     inversedBy="advert",
+     *     cascade={"persist"}
      * )
      */
     private $address;
@@ -101,7 +124,8 @@ class Advert
      *
      * @ORM\ManyToOne(
      *     targetEntity="AppBundle\Entity\Project",
-     *     inversedBy="adverts"
+     *     inversedBy="adverts",
+     *     cascade={"persist"}
      * )
      */
     private $project;

@@ -5,9 +5,29 @@
 {% block body %}
 
     <h1>Mon compte</h1>
-    <div>
 
-    </div>
+        {% for advert in adverts %}
+            <a href="{{ path('advert_details', {'id': advert.id }) }}">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="img-responsive img-thumbnail" src="https://media.paruvendu.fr/media-pa/5C0576/jl77_jl77-973a_photo_1.jpg" alt="">
+                        </div>
+                        <div class="col-md-6">
+                            <h2>{{ advert.title }}</h2>
+                            <h3>{{ advert.price }}€
+                                {{ advert.project.project == "Location" ? "/mois" : "" }}</h3>
+                            <p>{{ advert.project.project }}</p>
+                            <p>{{ advert.category.category }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ path('user_advert_edit', {'id': advert.id }) }}" class="btn btn-primary">Modifier l'annonce</a>
+                            <a href="{{ path('user_advert_remove', {'id': advert.id }) }}" class="btn btn-danger">Supprimer l'annonce</a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
 
 {% endblock %}
 

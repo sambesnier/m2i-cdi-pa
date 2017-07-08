@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
+
+
 /**
  * AdvertRepository
  *
@@ -10,6 +13,9 @@ namespace AppBundle\Repository;
  */
 class AdvertRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array
+     */
     public function getAllAdverts()
     {
         $qb = $this->createQueryBuilder('a')
@@ -22,5 +28,20 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
 
         $query = $qb->getResult();
         return $query;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getAdvertsByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select(['a'])
+            ->where('a.user = :user');
+        $query = $qb->getQuery()
+            ->setParameter('user', $user->getId());
+
+        return $query->getResult();
     }
 }

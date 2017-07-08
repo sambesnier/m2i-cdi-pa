@@ -2,8 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Advert;
+use AppBundle\Form\AdvertType;
 use AppBundle\Form\UserEditType;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,10 +33,12 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
 
+        $adverts = $repo->getAdvertsByUser($this->getUser());
 
         return $this->render('AppBundle:User:index.html.twig', array(
-            // ...
+            "adverts" => $adverts
         ));
     }
 
@@ -86,13 +92,80 @@ class UserController extends Controller
      *     "/add-advert",
      *     name="user_advert_new"
      * )
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAdvert()
+    public function addAdvert(Request $request)
     {
+        $user = $this->getUser();
+        $advert = new Advert();
+        $form = $this->createForm(
+            AdvertType::class,
+            $advert,
+            [
+                "method" => "post"
+            ]
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $advert->setUser($user);
+                $em->persist($advert);
+                $em->flush();
+
+                $this->addFlash("info", "L'annonce a bien été ajoutée");
+                return $this->redirectToRoute("user_home");
+            } catch (ORMException $e) {
+                $this->addFlash("danger", "Un problème est survenu lors de l'ajout de l'annonce");
+            }
+        }
 
         return $this->render('AppBundle:User:new-advert.html.twig', [
-
+            "formNewAdvert" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route(
+     *     "/delete-advert/{id}",
+     *     name="user_advert_remove"
+     * )
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeAdvertAction($id)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
+        $advert = $repo->findOneById($id);
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($advert);
+            $em->flush();
+
+            $this->addFlash("info", "Annonce supprimée");
+            return $this->redirectToRoute('user_home');
+
+        } catch (EntityNotFoundException $e) {
+            $this->addFlash("danger", "Annonce introuvable");
+        }
+        return $this->redirectToRoute("user_home");
+    }
+
+    /**
+     * @Route(
+     *     "/edit-advert/{id}",
+     *     name="user_advert_edit"
+     * )
+     * @param $id
+     */
+    public function editAdvertAction($id)
+    {
+
     }
 
 }
