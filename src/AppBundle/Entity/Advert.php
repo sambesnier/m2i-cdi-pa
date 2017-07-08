@@ -93,7 +93,8 @@ class Advert
      *
      * @ORM\OneToMany(
      *     targetEntity="AppBundle\Entity\Image",
-     *     mappedBy="advert"
+     *     mappedBy="advert",
+     *     cascade={"persist","remove"}
      * )
      */
     private $images;
@@ -129,7 +130,6 @@ class Advert
      * )
      */
     private $project;
-
 
     /**
      * Get id

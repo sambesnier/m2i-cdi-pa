@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -45,6 +47,37 @@ class Image
      */
     private $advert;
 
+    /**
+     * @Assert\Image(
+     *     minWidth="800",
+     *     minHeight="600",
+     *     maxSize="8M"
+     * )
+     */
+    private $file;
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     * @return Image
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        $this->url = $this->file->guessExtension();
+
+        $this->alt = "photo_habitation";
+
+        return $this;
+    }
 
     /**
      * Get id
