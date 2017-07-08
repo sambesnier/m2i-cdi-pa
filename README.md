@@ -3,7 +3,7 @@ m2i-cdi-pa
 
 Projet Symfony créé dans le cadre d'un TP
 
-##Installation
+## Installation
 
 ```
 $ git clone https://github.com/sambesnier/m2i-cdi-pa.git
@@ -11,7 +11,7 @@ $ cd m2i-cdi-pa/
 $ bower install
 $ composer install
 ```
-###Avec une configuration par défaut de MySql
+### Avec une configuration par défaut de MySql
 - database_host: 127.0.0.1
 - database_port: 3306
 - database_name: tp_m2i_symfony
@@ -26,18 +26,18 @@ $ php bin/console doctrine:fixtures:load
 $ php bin/console server:run
 ```
 
-##Utilisation
+## Utilisation
 
 Aller sur [http://localhost:8000]()
 
-##Version
+## Version
 
 Symfony 3.3.2
 
-##Auteur
+## Auteur
 
 **Samuel Besnier** - [SamBesnier](https://github.com/sambesnier)
  
- ##License
+ ## License
  
 Ce projet est sous license MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails  
