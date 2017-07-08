@@ -22,8 +22,8 @@ security:
             security: false
 
         user:
-            pattern: ^/user
-            anonymous: false
+            pattern: ^/
+            anonymous: true
             provider: user_provider
             form_login:
                 login_path: login_user

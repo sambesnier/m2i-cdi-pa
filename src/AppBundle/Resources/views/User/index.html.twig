@@ -1,7 +1,27 @@
 {% extends "base-layout.html.twig" %}
 
-{% block title %}AppBundle:User:index{% endblock %}
+{% block title %}Mon compte{% endblock %}
 
 {% block body %}
-<h1>Welcome to the User:index page</h1>
+
+    <h1>Mon compte</h1>
+    <div>
+
+    </div>
+
+{% endblock %}
+
+{% block aside %}
+    <h2>Panneau de contrôle</h2>
+    <a href="{{ path('edit_user') }}" class="btn btn-primary">Modifier mon compte</a><br>
+    <a href="" class="btn btn-primary">Ajouter une annonce</a>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        a {
+            margin: 10px 0;
+        }
+    </style>
 {% endblock %}
