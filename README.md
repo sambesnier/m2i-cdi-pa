@@ -28,7 +28,7 @@ $ php bin/console server:run
 
 ## Utilisation
 
-Aller sur [http://localhost:8000]()
+Aller sur http://localhost:8000
 
 ## Version
 
