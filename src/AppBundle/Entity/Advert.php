@@ -114,7 +114,7 @@ class Advert
      * @ORM\OneToOne(
      *     targetEntity="AppBundle\Entity\Address",
      *     inversedBy="advert",
-     *     cascade={"persist"}
+     *     cascade={"persist", "remove"}
      * )
      */
     private $address;

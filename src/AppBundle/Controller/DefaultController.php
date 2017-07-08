@@ -21,9 +21,7 @@ class DefaultController extends Controller
      */
     public function homeAction()
     {
-        return $this->render('AppBundle:Default:home.html.twig', array(
-            // ...
-        ));
+        return $this->redirectToRoute("advert_index");
     }
 
     /**

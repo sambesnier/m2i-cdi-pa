@@ -161,11 +161,40 @@ class UserController extends Controller
      *     "/edit-advert/{id}",
      *     name="user_advert_edit"
      * )
-     * @param $id
+     * @param Request $request
+     * @param Advert $advert
+     * @return \Symfony\Component\HttpFoundation\Response* @internal param $id
      */
-    public function editAdvertAction($id)
+    public function editAdvertAction(Request $request, Advert $advert)
     {
+        $form = $this->createForm(
+            AdvertType::class,
+            $advert,
+            [
+                "method" => "post"
+            ]
+        );
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($advert);
+                $em->flush();
+
+                $this->addFlash("info", "Annonce mise à jour");
+                return $this->redirectToRoute("user_home");
+
+            } catch (ORMException $e) {
+                $this->addFlash("danger", "Impossible de modifier l'annonce");
+            }
+        }
+
+        return $this->render("AppBundle:User:edit-advert.html.twig", [
+            "formAdvert" => $form->createView()
+        ]);
     }
 
 }

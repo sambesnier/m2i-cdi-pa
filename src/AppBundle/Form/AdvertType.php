@@ -83,7 +83,7 @@ class AdvertType extends AbstractType
                 'submit',
                 SubmitType::class,
                 [
-                    "label" => "Ajouter"
+                    "label" => "Valider"
                 ]);
     }
     

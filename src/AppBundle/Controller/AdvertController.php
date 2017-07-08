@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -43,6 +44,25 @@ class AdvertController extends Controller
         return $this->render('AppBundle:Advert:details.html.twig', array(
             "advert" => $advert
         ));
+    }
+
+    /**
+     * @Route(
+     *     "/by-user/{id}",
+     *     name="advert_by_user"
+     * )
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function advertsByUserAction(User $user)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
+
+        $adverts = $repo->getAdvertsByUser($user);
+
+        return $this->render('AppBundle:Advert:index.html.twig', [
+            "adverts" => $adverts
+        ]);
     }
 
 }

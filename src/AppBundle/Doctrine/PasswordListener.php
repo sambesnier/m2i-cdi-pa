@@ -5,6 +5,7 @@ namespace AppBundle\Doctrine;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordListener
 {
@@ -15,9 +16,9 @@ class PasswordListener
 
     /**
      * PasswordListener constructor.
-     * @param UserPasswordEncoder $encoder
+     * @param UserPasswordEncoder|UserPasswordEncoderInterface $encoder
      */
-    public function __construct(UserPasswordEncoder $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
