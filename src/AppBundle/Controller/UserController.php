@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\UserEditType;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
@@ -37,8 +39,11 @@ class UserController extends Controller
      *     "/edit-user",
      *     name="edit_user"
      * )
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editProfilAction(Request $request)
+    public function editProfilAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = $this->getUser();
 
@@ -52,6 +57,22 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            try {
+                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($password);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash("info", "Votre profil a bien été modifié");
+                return $this->redirectToRoute('user_home');
+            } catch (UniqueConstraintViolationException $e) {
+                $this->addFlash("danger", "Il existe déjà un utilisateur avec cet identifiant");
+            }
+        }
 
         return $this->render('AppBundle:User:edit-profile.html.twig', [
             "formEdit" => $form->createView()

@@ -48,7 +48,7 @@ class UserEditType extends AbstractType
                             "class" => "password-field"
                         ]
                     ],
-                    "required" => true,
+                    "required" => false,
                     "first_options" => [
                         "label" => "Mot de passe"
                     ],
@@ -56,6 +56,14 @@ class UserEditType extends AbstractType
                         "label" => "Confirmation du mot de passe"
                     ]
                 ])
+            ->add(
+                'address',
+                AddressType::class,
+                [
+                    'label' => 'Adresse',
+                    'required' => false
+                ]
+            )
             ->add(
                 'submit',
                 SubmitType::class,

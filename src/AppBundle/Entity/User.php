@@ -79,7 +79,8 @@ class User implements \Serializable, UserInterface
      *
      * @ORM\OneToOne(
      *     targetEntity="AppBundle\Entity\Address",
-     *     inversedBy="user"
+     *     inversedBy="user",
+     *     cascade={"persist"}
      * )
      */
     private $address;
