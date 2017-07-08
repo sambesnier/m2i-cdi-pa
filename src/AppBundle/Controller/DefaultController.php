@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserEditType;
+use AppBundle\Form\UserType;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -50,7 +51,7 @@ class DefaultController extends Controller
     {
         $user = new User();
         $form = $this->createForm(
-            UserEditType::class,
+            UserType::class,
             $user,
             [
                 "method" => "post"

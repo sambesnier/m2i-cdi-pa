@@ -6,7 +6,7 @@
 
     <h1>Liste des annonces</h1>
 
-    <div class="container">
+
         {% for advert in adverts %}
             <a href="{{ path('advert_details', {'id': advert.id }) }}">
             <div class="well">
@@ -25,7 +25,7 @@
             </div>
             </a>
         {% endfor %}
-    </div>
+
 
 {% endblock %}
 

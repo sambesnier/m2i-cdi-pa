@@ -21,8 +21,8 @@
                             <p>{{ advert.category.category }}</p>
                         </div>
                         <div class="col-md-3">
-                            <a href="{{ path('user_advert_edit', {'id': advert.id }) }}" class="btn btn-primary">Modifier l'annonce</a>
-                            <a href="{{ path('user_advert_remove', {'id': advert.id }) }}" class="btn btn-danger">Supprimer l'annonce</a>
+                            <a href="{{ path('user_advert_edit', {'id': advert.id }) }}" class="btn btn-primary ctrl-advert">Modifier l'annonce</a>
+                            <a href="{{ path('user_advert_remove', {'id': advert.id }) }}" class="btn btn-danger ctrl-advert">Supprimer l'annonce</a>
                         </div>
                     </div>
                 </div>
@@ -31,17 +31,18 @@
 
 {% endblock %}
 
-{% block aside %}
-    <h2>Panneau de contrôle</h2>
-    <a href="{{ path('edit_user') }}" class="btn btn-primary">Modifier mon compte</a><br>
-    <a href="{{ path('user_advert_new') }}" class="btn btn-primary">Ajouter une annonce</a>
-{% endblock %}
+
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
         a {
             margin: 10px 0;
+            text-decoration: none;
+            color: black;
+        }
+        .ctrl-advert {
+            width: 100%;
         }
     </style>
 {% endblock %}

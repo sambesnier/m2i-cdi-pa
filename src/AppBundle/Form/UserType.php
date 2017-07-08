@@ -60,7 +60,10 @@ class UserType extends AbstractType
                 'submit',
                 SubmitType::class,
                 [
-                    "label" => "Valider"
+                    "label" => "Valider",
+                    "attr" => [
+                        "class" => "btn-lg btn-primary"
+                    ]
                 ]);
     }
     
