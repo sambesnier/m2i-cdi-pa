@@ -33,3 +33,18 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    doctrine.event.password_listener:
+        class: AppBundle\Doctrine\PasswordListener
+        autowire: true
+        tags:
+            - {name: doctrine.event_listener, event: prePersist}
+
+    AppBundle\Service\FileUploader:
+        arguments:
+            $targetDir: '%images_directory%'
+
+    AppBundle\Doctrine\ImageUploadListener:
+        tags:
+            - {name: doctrine.event_listener, event: prePersist}
+            - {name: doctrine.event_listener, event: preUpdate}

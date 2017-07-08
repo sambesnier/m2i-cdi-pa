@@ -1,0 +1,40 @@
+{% extends "base-layout.html.twig" %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des annonces</h1>
+
+
+        {% for advert in adverts %}
+            <a href="{{ path('advert_details', {'id': advert.id }) }}">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-responsive img-thumbnail" src="{{ asset(advert.images.first().url) }}" alt="{{ advert.images.first().alt }}">
+                    </div>
+                    <div class="col-md-8">
+                        <h2>{{ advert.title }}</h2>
+                        <h3>{{ advert.price }}€
+                            {{ advert.project.project == "Location" ? "/mois" : "" }}</h3>
+                        <p>{{ advert.project.project }}</p>
+                        <p>{{ advert.category.category }}</p>
+                    </div>
+                </div>
+            </div>
+            </a>
+        {% endfor %}
+
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+{% endblock %}

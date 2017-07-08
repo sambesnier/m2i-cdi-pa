@@ -17,3 +17,5 @@
 /web/bundles/
 .idea
 web/dependancies
+*.php~
+/web/images/uploads/photos/*

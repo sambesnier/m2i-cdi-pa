@@ -1,0 +1,48 @@
+{% extends "base-layout.html.twig" %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+
+    <h1>Mon compte</h1>
+
+        {% for advert in adverts %}
+            <a href="{{ path('advert_details', {'id': advert.id }) }}">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="img-responsive img-thumbnail" src="{{ asset(advert.images.first().url) }}" alt="{{ advert.images.first().alt }}">
+                        </div>
+                        <div class="col-md-6">
+                            <h2>{{ advert.title }}</h2>
+                            <h3>{{ advert.price }}€
+                                {{ advert.project.project == "Location" ? "/mois" : "" }}</h3>
+                            <p>{{ advert.project.project }}</p>
+                            <p>{{ advert.category.category }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ path('user_advert_edit', {'id': advert.id }) }}" class="btn btn-primary ctrl-advert">Modifier l'annonce</a>
+                            <a href="{{ path('user_advert_remove', {'id': advert.id }) }}" class="btn btn-danger ctrl-advert">Supprimer l'annonce</a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        a {
+            margin: 10px 0;
+            text-decoration: none;
+            color: black;
+        }
+        .ctrl-advert {
+            width: 100%;
+        }
+    </style>
+{% endblock %}

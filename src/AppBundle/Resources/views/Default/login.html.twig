@@ -1,0 +1,42 @@
+{% extends 'base-layout.html.twig' %}
+
+{% block title %}
+Connexion
+{% endblock %}
+
+{% block body %}
+    {% if error.message is defined %}
+        <div class="alert alert-danger">
+            {{ error.message }}
+        </div>
+    {% endif %}
+
+    <h1>Connexion</h1>
+
+    <form method="post" action="{{ path('login_user_check') }}">
+        <div class="form-group">
+            <input type="text" name="_username"
+                   class="form-control"
+                   placeholder="Votre identifiant"
+                   value="{{ lastUserName }}"
+            >
+        </div>
+        <div class="form-group">
+            <input type="password" name="_password"
+                   class="form-control"
+                   placeholder="Votre mot de passe"
+            >
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">
+                Valider
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}
+

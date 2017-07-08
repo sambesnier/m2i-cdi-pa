@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<title>{% block title %}Welcome!{% endblock %}</title>
+<meta charset="UTF-8" />
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('dependencies/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dependencies/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <style>
+        #page {
+            padding-top: 75px;
+        }
+
+        body {
+            background-color: hsl(45, 19%, 82%);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #0f0f0f;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+{% block nav %}
+    {% include 'partials/_nav.html.twig' %}
+{% endblock %}
+<div class="container" id="page">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        <div class="row">
+            <section class="col-md-8">
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }}">
+                            {{ flash }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+            </section>
+
+            <aside class="col-md-4">
+                {% block aside %}
+                    {% if is_granted('ROLE_VENDOR') %}
+                        <h2>Panneau de contrôle</h2>
+                        <a href="{{ path('edit_user') }}" class="btn btn-primary btn-lg ctrl-panel">Modifier mon compte</a><br>
+                        <a href="{{ path('user_advert_new') }}" class="btn btn-primary btn-lg ctrl-panel">Ajouter une annonce</a>
+                    {% else %}
+                        <h2>Bienvenue sur Sam immobilier</h2>
+                        <p>Si vous souhaitez vendre un bien inscrivez vous gratuitement et créez votre première annonce</p>
+                        <a href="{{ path('register_user') }}" class="btn btn-primary btn-lg ctrl-panel">Inscrivez vous</a><br>
+                        <a href="{{ path('login_user') }}" class="btn btn-primary btn-lg ctrl-panel">Connectez vous</a>
+                    {% endif %}
+                {% endblock %}
+            </aside>
+        </div>
+</div>
+
+<footer>
+    {% block footer %}
+        copyleft : moi
+    {% endblock %}
+</footer>
+
+{% block javascripts %}
+    <script src="{{ asset('dependencies/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('dependencies/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/js/advert-form.js') }}"></script>
+{% endblock %}
+</body>
+</html>

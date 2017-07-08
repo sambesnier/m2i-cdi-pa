@@ -1,0 +1,21 @@
+.ctrl-panel {
+    margin: 10px 0;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.btn-lg {
+    width: 100%;
+}
+
+#page {
+    padding-bottom: 50px;
+}
+
+.delete-btn {
+    margin-left: 10px;
+}
