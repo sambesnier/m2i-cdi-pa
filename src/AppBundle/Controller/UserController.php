@@ -29,6 +29,8 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+
+
         return $this->render('AppBundle:User:index.html.twig', array(
             // ...
         ));
@@ -88,6 +90,9 @@ class UserController extends Controller
     public function addAdvert()
     {
 
+        return $this->render('AppBundle:User:new-advert.html.twig', [
+
+        ]);
     }
 
 }
