@@ -38,6 +38,7 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('a')
             ->select(['a'])
+            ->innerJoin('a.images', 'images')
             ->where('a.user = :user');
         $query = $qb->getQuery()
             ->setParameter('user', $user->getId());

@@ -42,7 +42,8 @@ class Image
      *
      * @ORM\ManyToOne(
      *     targetEntity="AppBundle\Entity\Advert",
-     *     inversedBy="images"
+     *     inversedBy="images",
+     *     cascade={"persist","remove"}
      * )
      */
     private $advert;
@@ -56,25 +57,14 @@ class Image
      */
     private $file;
 
-    /**
-     * @return mixed
-     */
     public function getFile()
     {
         return $this->file;
     }
 
-    /**
-     * @param mixed $file
-     * @return Image
-     */
-    public function setFile(UploadedFile $file = null)
+    public function setFile($file)
     {
         $this->file = $file;
-
-        $this->url = $this->file->guessExtension();
-
-        $this->alt = "photo_habitation";
 
         return $this;
     }
@@ -82,7 +72,7 @@ class Image
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

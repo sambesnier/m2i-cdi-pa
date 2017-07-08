@@ -15,3 +15,7 @@ footer {
 #page {
     padding-bottom: 50px;
 }
+
+.delete-btn {
+    margin-left: 10px;
+}

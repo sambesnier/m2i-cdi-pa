@@ -8,15 +8,7 @@ Nouvelle annonce
 
     <h1>Nouvelle annonce</h1>
 
-    {{ form_row(formNewAdvert.title) }}
-
-    {{ form_row(formNewAdvert.content) }}
-
-    {{ form_row(formNewAdvert.images) }}
-
-    <a href="#" id="add_image" class="btn btn-primary add-btn">Ajouter une photo</a>
-
-    {{ form_rest(formNewAdvert) }}
+    {{ form(formNewAdvert) }}
 
 {% endblock %}
 

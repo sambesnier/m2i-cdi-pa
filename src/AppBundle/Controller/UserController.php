@@ -114,6 +114,11 @@ class UserController extends Controller
             try {
                 $em = $this->getDoctrine()->getManager();
                 $advert->setUser($user);
+                $images = $form['images']->getData();
+                foreach ($images as $image) {
+                    $image->setAdvert($advert);
+                    $advert->addImage($image);
+                }
                 $em->persist($advert);
                 $em->flush();
 

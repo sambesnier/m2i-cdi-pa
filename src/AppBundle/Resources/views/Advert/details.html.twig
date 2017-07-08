@@ -11,23 +11,25 @@
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        {% if advert.images.count() > 1 %}
+                            {% for i in 1..(advert.images.count() - 1) %}
+                                <li data-target="#myCarousel" data-slide-to="{{ i }}"></li>
+                            {% endfor %}
+                        {% endif %}
                     </ol>
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="https://media.paruvendu.fr/media-pa/5C0576/jl77_jl77-973a_photo_1.jpg" alt="">
+                            <img src="{{ asset(advert.images.first().url) }}" alt="{{ advert.images.first().alt }}">
                         </div>
-
-                        <div class="item">
-                            <img src="https://media.paruvendu.fr/media-pa/5C0576/jl77_jl77-973a_photo_1.jpg" alt="">
-                        </div>
-
-                        <div class="item">
-                            <img src="https://media.paruvendu.fr/media-pa/5C0576/jl77_jl77-973a_photo_1.jpg" alt="">
-                        </div>
+                        {% if advert.images.count() > 1 %}
+                            {% for i in 1..(advert.images.count() - 1) %}
+                            <div class="item">
+                                <img src="{{ asset(advert.images[i].url) }}" alt="{{ advert.images[i].alt }}">
+                            </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
 
                     <!-- Left and right controls -->

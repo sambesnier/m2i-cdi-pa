@@ -8,14 +8,6 @@ $(document).ready(function() {
 
     var index = $container.find(':input').length;
 
-    $('#add_image').click(function(e) {
-        if ($container.find(':input').length < 5)
-            add($container);
-
-        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-        return false;
-    });
-
     if (index == 0) {
         add($container);
     } else {
@@ -33,6 +25,7 @@ $(document).ready(function() {
 
         var $prototype = $(template);
 
+        addAddLink($prototype);
         addDeleteLink($prototype);
 
         $container.append($prototype);
@@ -55,5 +48,19 @@ $(document).ready(function() {
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
             return false;
         });
+    }
+
+    function addAddLink($prototype) {
+        var $addLink = $('<a href="#" class="btn btn-primary add-btn">Ajouter</a>');
+
+        $prototype.append($addLink);
+
+        $addLink.click(function (e) {
+            if ($container.find(':input').length < 5)
+                add($container);
+
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        })
     }
 });
