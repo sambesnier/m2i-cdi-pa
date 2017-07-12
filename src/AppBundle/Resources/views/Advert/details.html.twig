@@ -47,7 +47,7 @@
             <div class="col-md-4">
                 <h2>Le vendeur :</h2>
                 <p><b>{{ advert.user.name }} {{ advert.user.firstname }}</b></p>
-                <p><a href="{{ path('advert_by_user', {'id': advert.user.id }) }}">Voir ses autres annonces</a></p>
+                <p><a href="{{ path('advert_by_user', {'id': advert.user.id, 'page': 1}) }}">Voir ses autres annonces</a></p>
                 <p>{{ advert.address.number }} {{ advert.address.path }}</p>
                 <p>{{ advert.address.postcode }}, {{ advert.address.city }}</p>
                 <p><a href="mailto:{{ advert.user.email }}" class="btn btn-primary btn-lg">Contacter par mail</a></p>

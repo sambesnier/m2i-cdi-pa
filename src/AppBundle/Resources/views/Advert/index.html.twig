@@ -26,6 +26,18 @@
             </a>
         {% endfor %}
 
+    <div class="pagination">
+        {% if pagination.nbPages > 0 %}
+            {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.nbPages)) %}
+                <li {% if p == pagination.page %}class="active"{% endif %}>
+                    <a href="{{ path(pagination.routeName, pagination.paramsRoute|merge({'page': p})) }}">
+                        {{ p }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </div>
+
 
 {% endblock %}
 

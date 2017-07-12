@@ -28,17 +28,25 @@ class UserController extends Controller
 {
     /**
      * @Route(
-     *     "/home",
+     *     "/home/{page}",
      *     name="user_home")
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
 
-        $adverts = $repo->getAdvertsByUser($this->getUser());
+        $adverts = $repo->getAdvertsByUser($this->getUser(), $page);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($adverts) / 10),
+            'routeName' => 'advert_index',
+            'paramsRoute' => array()
+        );
 
         return $this->render('AppBundle:User:index.html.twig', array(
-            "adverts" => $adverts
+            "adverts" => $adverts,
+            "pagination" => $pagination
         ));
     }
 

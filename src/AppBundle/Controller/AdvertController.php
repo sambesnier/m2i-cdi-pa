@@ -22,16 +22,24 @@ class AdvertController extends Controller
 {
     /**
      * @Route(
-     *     "/index",
+     *     "/index/{page}",
      *     name="advert_index")
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
-        $adverts = $repo->getAllAdverts();
+        $adverts = $repo->getAllAdverts($page);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($adverts) / 10),
+            'routeName' => 'advert_index',
+            'paramsRoute' => array()
+        );
 
         return $this->render('AppBundle:Advert:index.html.twig', array(
-            "adverts" => $adverts
+            "adverts" => $adverts,
+            "pagination" => $pagination
         ));
     }
 
@@ -52,21 +60,29 @@ class AdvertController extends Controller
 
     /**
      * @Route(
-     *     "/by-user/{id}",
+     *     "/by-user/{id}/{page}",
      *     name="advert_by_user"
      * )
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function advertsByUserAction(User $user)
+    public function advertsByUserAction(User $user, $page)
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle:Advert');
 
         $adverts = $repo->getAdvertsByUser($user);
 
-        return $this->render('AppBundle:Advert:index.html.twig', [
-            "adverts" => $adverts
-        ]);
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($adverts) / 10),
+            'routeName' => 'advert_index',
+            'paramsRoute' => array()
+        );
+
+        return $this->render('AppBundle:Advert:index.html.twig', array(
+            "adverts" => $adverts,
+            "pagination" => $pagination
+        ));
     }
 
     /**

@@ -5,6 +5,8 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\User;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 /**
@@ -16,9 +18,10 @@ use AppBundle\Entity\User;
 class AdvertRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @return array
+     * @param int $page
+     * @return Paginator
      */
-    public function getAllAdverts()
+    public function getAllAdverts($page = 1)
     {
         $qb = $this->createQueryBuilder('a')
             ->select(['a', 'address', 'category', 'project', 'user'])
@@ -28,15 +31,25 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
             ->innerJoin('a.user', 'user')
             ->getQuery();
 
-        $query = $qb->getResult();
-        return $query;
+        $maxResults = 10;
+
+        $firstResult = ($page - 1) * $maxResults;
+        $qb->setFirstResult($firstResult)->setMaxResults($maxResults);
+
+        $paginator = new Paginator($qb);
+
+        if (($paginator->count() <= $firstResult) && $page != 1) {
+            throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
+
+        return $paginator;
     }
 
     /**
      * @param User $user
-     * @return array
+     * @return Paginator
      */
-    public function getAdvertsByUser(User $user)
+    public function getAdvertsByUser(User $user, $page = 1)
     {
         $qb = $this->createQueryBuilder('a')
             ->select(['a'])
@@ -45,7 +58,18 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
         $query = $qb->getQuery()
             ->setParameter('user', $user->getId());
 
-        return $query->getResult();
+        $maxResults = 10;
+
+        $firstResult = ($page - 1) * $maxResults;
+        $query->setFirstResult($firstResult)->setMaxResults($maxResults);
+
+        $paginator = new Paginator($query);
+
+        if (($paginator->count() <= $firstResult) && $page != 1) {
+            throw new NotFoundHttpException("La page demandée n'existe pas");
+        }
+
+        return $paginator;
     }
 
     public function searchAdverts($project, $category, $minPrice, $maxPrice, $postCode)
