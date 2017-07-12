@@ -113,7 +113,8 @@ class UserController extends Controller
             AdvertType::class,
             $advert,
             [
-                "method" => "post"
+                "method" => "post",
+                "mode" => "new"
             ]
         );
 
@@ -186,7 +187,8 @@ class UserController extends Controller
             AdvertType::class,
             $advert,
             [
-                "method" => "post"
+                "method" => "post",
+                "mode" => "edit"
             ]
         );
 

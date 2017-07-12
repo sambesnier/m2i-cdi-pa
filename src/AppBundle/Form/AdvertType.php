@@ -35,8 +35,10 @@ class AdvertType extends AbstractType
                     "attr" => [
                         "rows" => 6
                     ]
-                ])
-            ->add(
+                ]);
+        // Add images only if we are in creation mode
+        if ($options['mode'] == "new") {
+            $builder->add(
                 'images',
                 CollectionType::class,
                 [
@@ -45,7 +47,10 @@ class AdvertType extends AbstractType
                     "allow_add" => true,
                     "allow_delete" => true
                 ]
-            )
+            );
+        }
+
+        $builder
             ->add(
                 'project',
                 EntityType::class,
@@ -107,7 +112,8 @@ class AdvertType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Advert'
+            'data_class' => 'AppBundle\Entity\Advert',
+            'mode' => null
         ));
     }
 
