@@ -210,7 +210,8 @@ class UserController extends Controller
         }
 
         return $this->render("AppBundle:User:edit-advert.html.twig", [
-            "formAdvert" => $form->createView()
+            "formAdvert" => $form->createView(),
+            "advert" => $advert
         ]);
     }
 
